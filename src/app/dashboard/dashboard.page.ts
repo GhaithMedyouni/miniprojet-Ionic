@@ -8,7 +8,8 @@ import { AuthService } from '../service/firebase.service';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage {
-  selectedSection: string = 'dashboard'; // Section par défaut
+  
+  
 
   constructor(private firebaseService: AuthService, private router: Router) {}
 
@@ -23,8 +24,18 @@ export class DashboardPage {
     }
   }
 
-  // Méthode pour mettre à jour la section sélectionnée
-  selectSection(section: string) {
-    this.selectedSection = section;
+  // Méthode pour rediriger vers une page spécifique
+  navigateToPage(page: string) {
+    if (page === 'dashboard') {
+      this.router.navigate(['/dashboard']); // Rediriger vers la page Dashboard
+    } else if (page === 'clients') {
+      this.router.navigate(['/client']); // Rediriger vers la page Clients
+    } else if (page === 'produits') {
+      this.router.navigate(['/produit']); // Rediriger vers la page Produits
+    } else if (page === 'stock') {
+      this.router.navigate(['/stock']); // Rediriger vers la page Stock
+    } else if (page === 'categorie') {
+      this.router.navigate(['/categorie']); // Rediriger vers la page Catégorie
+    }
   }
 }

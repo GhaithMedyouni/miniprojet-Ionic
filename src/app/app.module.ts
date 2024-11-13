@@ -8,15 +8,22 @@ import { environment } from '../environments/environment';  // Import de la conf
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), // Initialisation de Firebase
     AngularFirestoreModule, // Pour Firestore
-    AngularFireAuthModule, // Pour l'authentification
+    AngularFireAuthModule,
+     // Pour l'authentification
+    
+     
   ],
   bootstrap: [AppComponent]
 })
