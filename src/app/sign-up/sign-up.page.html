@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="auth-container">
+    <h2>Create an Account</h2>
+    <form (submit)="signUp()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required></ion-input>
+      </ion-item>
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+      <ion-button expand="full" type="submit" class="auth-button">Sign Up</ion-button>
+    </form>
+
+    <div class="footer-text">
+      Already have an account? <a routerLink="/signIn">Sign In</a>
+    </div>
+  </div>
+</ion-content>

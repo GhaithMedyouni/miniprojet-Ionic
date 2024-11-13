@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestion des Catégories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Formulaire pour ajouter une nouvelle catégorie -->
+  <form *ngIf="!selectedCategory" (ngSubmit)="onCreateCategory(categoryForm.value)" #categoryForm="ngForm">
+    <h2>Ajouter une nouvelle catégorie</h2>
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input type="text" required name="name" [(ngModel)]="categoryData.name" placeholder="Nom de la catégorie"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input type="text" required name="description" [(ngModel)]="categoryData.description" placeholder="Description de la catégorie"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit">Ajouter</ion-button>
+  </form>
+
+  <!-- Liste des catégories -->
+  <h2>Liste des catégories</h2>
+  <ion-list>
+    <ion-item *ngFor="let category of categories">
+      <ion-label>
+        <h3>{{ category.name }}</h3>
+        <p>{{ category.description }}</p>
+      </ion-label>
+
+      <ion-button color="primary" (click)="onSelectCategory(category)">Modifier</ion-button>
+      <ion-button color="danger" (click)="onDeleteCategory(category.id)">Supprimer</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- Formulaire pour modifier une catégorie sélectionnée -->
+  <div *ngIf="selectedCategory">
+    <h2>Modifier la catégorie</h2>
+    <form (ngSubmit)="onUpdateCategory(categoryForm.value)" #categoryForm="ngForm">
+      <ion-item>
+        <ion-label position="floating">Nom</ion-label>
+        <ion-input type="text" required name="name" [(ngModel)]="selectedCategory.name" placeholder="Nom de la catégorie"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input type="text" required name="description" [(ngModel)]="selectedCategory.description" placeholder="Description de la catégorie"></ion-input>
+      </ion-item>
+      <ion-button expand="full" type="submit">Mettre à jour</ion-button>
+      <ion-button expand="full" color="medium" (click)="resetCategoryForm()">Annuler</ion-button>
+    </form>
+  </div>
+</ion-content>

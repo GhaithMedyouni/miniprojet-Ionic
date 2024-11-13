@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestion des Clients</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Formulaire pour ajouter un nouveau client -->
+  <form *ngIf="!selectedClient" (ngSubmit)="onCreate(clientForm.value)" #clientForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Nom</ion-label>
+        <ion-input type="text" required name="name" [(ngModel)]="clientData.name" placeholder="Nom"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" required name="email" [(ngModel)]="clientData.email" placeholder="Email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Téléphone</ion-label>
+        <ion-input type="tel" required name="phone" [(ngModel)]="clientData.phone" placeholder="Téléphone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Catégorie</ion-label>
+        <ion-select [(ngModel)]="clientData.categoryId" name="categoryId" placeholder="Choisir une catégorie">
+          <ion-select-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" type="submit">Ajouter</ion-button>
+    </ion-list>
+  </form>
+
+  <!-- Formulaire pour modifier un client sélectionné -->
+  <form *ngIf="selectedClient" (ngSubmit)="onUpdate(clientForm.value)" #clientForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Nom</ion-label>
+        <ion-input type="text" required name="name" [(ngModel)]="clientData.name" placeholder="Nom"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" required name="email" [(ngModel)]="clientData.email" placeholder="Email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Téléphone</ion-label>
+        <ion-input type="tel" required name="phone" [(ngModel)]="clientData.phone" placeholder="Téléphone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Catégorie</ion-label>
+        <ion-select [(ngModel)]="clientData.categoryId" name="categoryId" placeholder="Choisir une catégorie">
+          <ion-select-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" type="submit">Mettre à jour</ion-button>
+      <ion-button expand="full" color="medium" (click)="resetForm()">Annuler</ion-button>
+    </ion-list>
+  </form>
+
+  <!-- Liste des clients -->
+  <ion-list>
+    <ion-item *ngFor="let client of clients">
+      <ion-label>
+        <h2>{{ client.name }}</h2>
+        <p>Email: {{ client.email }}</p>
+        <p>Téléphone: {{ client.phone }}</p>
+        <p>Catégorie: {{ getCategoryNameById(client.categoryId) }}</p>
+      </ion-label>
+
+      <ion-button color="primary" (click)="onSelect(client); $event.stopPropagation()">Modifier</ion-button>
+      <ion-button color="danger" (click)="onDelete(client.id); $event.stopPropagation()">Supprimer</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

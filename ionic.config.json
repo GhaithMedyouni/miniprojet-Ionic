@@ -1,0 +1,7 @@
+{
+  "name": "gestionstock",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,44 @@
+.dashboard-container {
+    display: flex;
+    height: 100vh; /* Hauteur de la page entière */
+  }
+  
+  .sidebar {
+    width: 250px; /* Largeur de la sidebar */
+    background-color: #f4f4f4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding-top: 20px;
+    z-index: 100;
+  }
+  
+  .sidebar .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ion-list {
+    padding-left: 0;
+  }
+  
+  .main-content {
+    margin-left: 250px; /* Largeur de la sidebar pour ajuster le contenu */
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #fff;
+    height: 100%;
+    overflow-y: auto; /* Permet au contenu de défiler si nécessaire */
+  }
+  
+  .main-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  ion-button {
+    --padding-start: 16px;
+    --padding-end: 16px;
+  }
+  

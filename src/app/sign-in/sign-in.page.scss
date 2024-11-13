@@ -1,0 +1,38 @@
+ion-content {
+    --background: #f4f4f4; /* Optionnel, pour une couleur de fond douce */
+  
+    .auth-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      max-width: 400px; /* Ajustez la largeur de la carte comme souhaité */
+      margin: 0 auto; /* Centre la carte horizontalement */
+      padding: 20px;
+      background-color: white; /* Couleur de fond de la carte */
+      border-radius: 10px; /* Bords arrondis de la carte */
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Légère ombre autour de la carte */
+    }
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .error-message {
+      color: red;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  
+    .footer-text {
+      text-align: center;
+      margin-top: 20px;
+    }
+  
+    ion-button.auth-button {
+      margin-top: 20px;
+    }
+  }
+  

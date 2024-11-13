@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestion des Produits</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Formulaire pour ajouter un nouveau produit -->
+  <form *ngIf="!selectedProduit" (ngSubmit)="onCreate(produitForm.value)" #produitForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Nom du produit</ion-label>
+        <ion-input type="text" required name="name" [(ngModel)]="produitData.name" placeholder="Nom du produit"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input type="text" required name="description" [(ngModel)]="produitData.description" placeholder="Description"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Prix</ion-label>
+        <ion-input type="number" required name="price" [(ngModel)]="produitData.price" placeholder="Prix"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Quantité</ion-label>
+        <ion-input type="number" required name="quantity" [(ngModel)]="produitData.quantity" placeholder="Quantité"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Catégorie</ion-label>
+        <ion-select [(ngModel)]="produitData.categoryId" name="categoryId" placeholder="Choisir une catégorie">
+          <ion-select-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" type="submit">Ajouter</ion-button>
+    </ion-list>
+  </form>
+
+  <!-- Formulaire pour modifier un produit sélectionné -->
+  <form *ngIf="selectedProduit" (ngSubmit)="onUpdate(produitForm.value)" #produitForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Nom du produit</ion-label>
+        <ion-input type="text" required name="name" [(ngModel)]="produitData.name" placeholder="Nom du produit" class="custom-placeholder"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input type="text" required name="description" [(ngModel)]="produitData.description" placeholder="Description" class="custom-placeholder"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Prix</ion-label>
+        <ion-input type="number" required name="price" [(ngModel)]="produitData.price" placeholder="Prix"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Quantité</ion-label>
+        <ion-input type="number" required name="quantity" [(ngModel)]="produitData.quantity" placeholder="Quantité"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Catégorie</ion-label>
+        <ion-select [(ngModel)]="produitData.categoryId" name="categoryId" placeholder="Choisir une catégorie">
+          <ion-select-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" type="submit">Mettre à jour</ion-button>
+      <ion-button expand="full" color="medium" (click)="resetForm()">Annuler</ion-button>
+    </ion-list>
+  </form>
+
+  <!-- Liste des produits -->
+  <ion-list>
+    <ion-item *ngFor="let produit of produits">
+      <ion-label>
+        <h2>{{ produit.name }}</h2>
+        <p>Description: {{ produit.description }}</p>
+        <p>Prix: {{ produit.price | currency }}</p>
+        <p>Quantité: {{ produit.quantity }}</p> <!-- Affichage de la quantité -->
+        <p>Catégorie: {{ getCategoryNameById(produit.categoryId) }}</p>
+      </ion-label>
+
+      <ion-button color="primary" (click)="onSelect(produit); $event.stopPropagation()">Modifier</ion-button>
+      <ion-button color="danger" (click)="onDelete(produit.id); $event.stopPropagation()">Supprimer</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

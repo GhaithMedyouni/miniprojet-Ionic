@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sign In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="auth-container">
+    <h2>Welcome Back!</h2>
+    <form (submit)="signIn()">
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+      </ion-item>
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+      <ion-button expand="full" type="submit" class="auth-button">Sign In</ion-button>
+    </form>
+
+    <div class="footer-text">
+      Don't have an account? <a routerLink="/signUp">Sign Up</a>
+    </div>
+  </div>
+</ion-content>
