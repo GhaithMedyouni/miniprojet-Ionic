@@ -74,4 +74,16 @@ export class ClientService {
       throw error;  // Propager l'erreur
     });
   }
+
+  // Méthode pour récupérer les clients par catégorie
+  getClientsByCategory(categoryId: string | undefined): Observable<Client[]> {
+    return this.firestore.collection<Client>('clients', ref => ref.where('categoryId', '==', categoryId))
+      .snapshotChanges().pipe(
+        map(actions => actions.map(a => {
+          const data = a.payload.doc.data() as Client;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }))
+      );
+  }
 }

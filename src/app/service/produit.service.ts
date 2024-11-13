@@ -75,4 +75,61 @@ export class ProduitService {
       throw error;  // Propager l'erreur
     });
   }
+
+ // Méthode pour récupérer le total des produits (quantité)
+ getTotalProduits(): Observable<number> {
+  return this.firestore.collection<Produit>('produits').snapshotChanges().pipe(
+    map(actions => actions.reduce((total, a) => {
+      const data = a.payload.doc.data() as Produit;
+      return total + (data.quantity || 0);
+    }, 0))
+  );
+}
+
+  // Méthode pour récupérer le total des catégories (nombre de produits par catégorie)
+  getTotalCategories(): Observable<number> {
+    return this.firestore.collection<Produit>('produits').snapshotChanges().pipe(
+      map(actions => {
+        const categories = new Set(actions.map(a => (a.payload.doc.data() as Produit).categoryId));
+        return categories.size;
+      })
+    );
+  }
+
+
+  // Méthode pour récupérer la somme totale des produits (prix * quantité)
+  getTotalSomme(): Observable<number> {
+    return this.firestore.collection<Produit>('produits').snapshotChanges().pipe(
+      map(actions => actions.reduce((total, a) => {
+        const data = a.payload.doc.data() as Produit;
+        return total + (data.price * (data.quantity || 0));
+      }, 0))
+    );
+  }
+
+  // Méthode pour récupérer les produits par catégorie
+  getProductsByCategory(categoryId: string | undefined): Observable<Produit[]> {
+    return this.firestore.collection<Produit>('produits', ref => ref.where('categoryId', '==', categoryId))
+      .snapshotChanges().pipe(
+        map(actions => actions.map(a => {
+          const data = a.payload.doc.data() as Produit;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        }))
+      );
+  }
+
+  // Get all clients (assuming a clients collection exists)
+  // getClientsParCategorie(categoryId: string | undefined): Observable<any[]> {
+  //   return this.firestore.collection('clients', ref => ref.where('categoryId', '==', categoryId))
+  //     .snapshotChanges().pipe(
+  //       map(actions => actions.map(a => {
+  //         const data = a.payload.doc.data() as { [key: string]: any };  // Assertion du type
+  //         const id = a.payload.doc.id;
+  //         return { id, ...data };  // Utilisation du spread sur l'objet 'data'
+  //       }))
+  //     );
+  // }
+  
+  
 }
